@@ -92,7 +92,79 @@
 			</section>
 			<!-- Slide 6-->
 			<section>
-				
+				<h1>Observable</h1>
+				<p class="fragment">An observable represents a stream, or source of data that can arrive over time. You
+					can create an observable from nearly anything.</p>
+				<p class="fragment">Observables are lazy Push collections of multiple values.</p>
+				<div class="fragment">
+					<p>Comparison between different concepts</p>
+					<table>
+						<tr>
+							<th>Notification Type/Return Values</th>
+							<th>Single</th>
+							<th>Multiple</th>
+						</tr>
+						<tr>
+							<td>Pull</td>
+							<td>Function</td>
+							<td>Iterator</td>
+						</tr>
+						<tr>
+							<td>Push</td>
+							<td>Promise</td>
+							<td>Observables</td>
+						</tr>
+					</table>
+				</div>
+			</section>
+			<!-- Slide 7-->
+			<section>
+				<h1>Usage</h1>
+				<pre><code class="hljs">var observable = Rx.Observable.create(function (observer) {
+	observer.next(1);
+	observer.next(2);
+	observer.next(3);
+	setTimeout(() => {
+		observer.next(4);
+		observer.complete();
+	}, 1000);
+});
+					  
+console.log('just before subscribe');
+observable.subscribe({
+	next: x => console.log('got value ' + x),
+	error: err => console.error('something wrong occurred: ' + err),
+	complete: () => console.log('done'),
+});
+console.log('just after subscribe');
+					  </code></pre>
+			</section>
+			<section>
+				<h1>Observable vs Promise</h1>
+				<table>
+					<tr>
+						<th>Promises</th>
+						<th>Observable</th>
+					</tr>
+					<tr>
+						<td>Helps you run functions asynchronously, and use their return values (or exceptions) but only
+							once when executed.</td>
+						<td>Helps you run functions asynchronously, and use their return values in a continuous
+							sequence(multiple times) when executed.</td>
+					</tr>
+					<tr>
+						<td>Not Lazy ie they are executed as soon they are defined</td>
+						<td>By default, it is Lazy as it emits values when time progresses.</td>
+					</tr>
+					<tr>
+						<td>Not cancellable. The two possible decisions are Reject or Resolve</td>
+						<td>Has a lot of operator which simplifies coding effort.</td>
+					</tr>
+					<tr>
+						<td>Provided natively.</td>
+						<td>Have to add external library</td>
+					</tr>
+				</table>
 			</section>
 		</div>
 	</div>
