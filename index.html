@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/monokai.css">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<!-- Slide 1-->
+			<section>
+				<h1>Introduction To ReactiveX</h1>
+				<small>Concepts and application of RX.js</small>
+			</section>
+			<!-- Slide 2-->
+			<section>
+				<h1>Prerequisites</h1>
+				<ol>
+					<li>Javascript</li>
+					<li>Promises and their understanding.</li>
+				</ol>
+			</section>
+			<!-- Slide 3-->
+			<section>
+				<h1>
+					What is RxJs ?
+				</h1>
+				<p class="fragment">RxJS is a library for composing asynchronous and event-based programs by using
+					observable sequences.</p>
+				<p class="fragment">In other words it is an implementation of Reactive Programming Paradigm in
+					Javascript.</p>
+				<div class="fragment">
+					<p>For Your Information, This concept is also implemented in other languages as well</p>
+					<ol>
+						<li>Python - RxPy</li>
+						<li>C# - RX.Net</li>
+						<li>Java - RXJava</li>
+						<li>and many more</li>
+					</ol>
+				</div>
+			</section>
+			<!-- Slide 4-->
+			<section>
+				<h1>Installation</h1>
+				<div class="fragment">
+					<h6>Install through NPM</h6>
+					<pre><code class="hljs">npm install rxjs</code></pre>
+				</div>
+				<div class="fragment">
+					<h6>Usage</h6>
+					<pre><code class="hljs">import * as rxjs from 'rxjs';</code></pre>
+					<pre><code class="hljs">import { of } from 'rxjs';</code></pre>
+					<pre><code class="hljs">import { map } from 'rxjs/operators';</code></pre>
+				</div>
+			</section>
+			<!-- Slide 5-->
+			<section>
+				<h4>Essential Concepts</h4>
+				<ol>
+					<li>
+						<strong>Observable</strong>: represents the idea of an invokable collection of future values
+						or events.
+					</li>
+					<li>
+						<strong>Observer</strong>: is a collection of callbacks that knows how to listen to values
+						delivered by the Observable.
+					</li>
+					<li>
+						<strong>Subscription</strong>: represents the execution of an Observable, is primarily useful
+						for cancelling the execution.
+					</li>
+					<li>
+						<strong>Operators</strong>: are pure functions that enable a functional programming style of
+						dealing with collections with operations like map, filter, concat, flatMap, etc.
+					</li>
+					<li>
+						<strong>Subject</strong>: is the equivalent to an EventEmitter, and the only way of
+						multicasting a value or event to multiple Observers.
+					</li>
+				</ol>
+			</section>
+			<!-- Slide 6-->
+			<section>
+				
+			</section>
+		</div>
+	</div>
+
+	<script src="js/reveal.js"></script>
+
+	<script>
+		Reveal.initialize({
+			dependencies: [
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true }
+			]
+		});
+	</script>
+</body>
+
+</html>
