@@ -139,6 +139,7 @@ observable.subscribe({
 console.log('just after subscribe');
 					  </code></pre>
 			</section>
+			<!-- Slide 8-->
 			<section>
 				<h1>Observable vs Promise</h1>
 				<table>
@@ -165,6 +166,88 @@ console.log('just after subscribe');
 						<td>Have to add external library</td>
 					</tr>
 				</table>
+			</section>
+			<!-- Slide 9-->
+			<section>
+				<h3>Core Observable concerns:</h3>
+				<ul>
+					<li>Creating Observables</li>
+					<li>Subscribing to Observables</li>
+					<li>Executing the Observable</li>
+					<li>Disposing Observables</li>
+				</ul>
+			</section>
+			<!-- Slide 10-->
+			<section>
+				<h3>Creating Observables</h3>
+				<pre><code class="hljs">
+import { Observable } from 'rxjs';
+const observable = new Observable(function subscribe(subscriber) {
+	const id = setInterval(() => {
+		subscriber.next('hi')
+	}, 1000);
+});
+				</code></pre>
+				<blockquote>Observables can be created with new Observable. Most commonly, observables are created using
+					creation functions, like of, from, interval, etc.</blockquote>
+			</section>
+			<!-- Slide 11-->
+			<section>
+				<h3>Subscribing to Observables</h3>
+				<pre><code class="hljs">
+observable.subscribe(x => console.log(x));
+</code></pre>
+				<blockquote>Subscribing to an Observable is like calling a function, providing callbacks where the data
+					will be delivered to.</blockquote>
+				<aside class="notes">A subscribe call is simply a way to start an "Observable execution" and deliver
+					values or events to an Observer of that execution.</aside>
+			</section>
+			<!-- Slide 12-->
+			<section>
+				<h3>Executing Observables</h3>
+				There are three types of values an Observable Execution can deliver:
+				<ul>
+					<li><strong>Next</strong> callback: sends a value such as a Number, a String, an Object, etc.</li>
+					<li><strong>Error</strong> callback: sends a JavaScript Error or exception.</li>
+					<li><strong>Complete</strong> callback: does not send a value.</li>
+				</ul>
+				<pre><code class="hljs">
+observable.subscribe(
+	next: (any) => void, 
+	error: (any) => void, 
+	complete: () => void
+);
+</code></pre>
+				<blockquote>In an Observable Execution, zero to infinite Next notifications may be delivered. If either
+					an Error or Complete notification is delivered, then nothing else can be delivered afterwards.
+				</blockquote>
+				<aside class="notes">
+					<ul>
+						<li>Observables strictly adhere to the Observable Contract</li>
+						<li>It is a good idea to wrap any code in subscribe with try/catch block that will deliver an
+							Error notification if it catches an exception:</li>
+					</ul>
+				</aside>
+			</section>
+			<!-- Slide 13-->
+			<section>
+				<h3>Disposing Observable Executions</h3>
+				When an observable is subscribed it occupies some resources, it is neccessary to release those resorces
+				when it's work is done.
+				<pre><code class="hljs">
+import { from } from 'rxjs';
+
+const observable = from([10, 20, 30]);
+const subscription = observable.subscribe(x => console.log(x));
+// Later:
+subscription.unsubscribe();
+	</code></pre>
+				<small>It can also be used to cancel an ongoing task such as API calls</small>
+				<blockquote>When you subscribe, you get back a Subscription, which represents the ongoing execution.
+					Just call unsubscribe() to cancel the execution.</blockquote>
+			</section>
+			<section>
+				<iframe src="marble/index.html#race"></iframe>
 			</section>
 		</div>
 	</div>
