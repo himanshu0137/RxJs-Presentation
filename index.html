@@ -243,17 +243,71 @@ const subscription = observable.subscribe(x => console.log(x));
 subscription.unsubscribe();
 	</code></pre>
 				<small>It can also be used to cancel an ongoing task such as API calls</small>
-				<blockquote>When you subscribe, you get back a Subscription, which represents the ongoing execution.
+				<blockquote>When you subscribe, you get back a <em>Subscription</em>, which represents the ongoing
+					execution.
 					Just call unsubscribe() to cancel the execution.</blockquote>
 			</section>
+			<!-- Slide 14-->
 			<section>
-				<iframe src="marble/index.html#race"></iframe>
+				<h1>Operators</h1>
+				<p>An operator is a function that takes one observable as its first argument and returns another
+					Observable with desired modifications</p>
+				<blockquote>Operators are the horse-power behind observables, providing an elegant, declarative solution
+					to complex asynchronous tasks</blockquote>
+			</section>
+			<!-- Slide 15-->
+			<section>
+				<h1>Usage</h1>
+				<p>Operators are used with a method called <em>pipe()</em></p>
+				<pre><code class="hljs">
+obs.pipe(
+	op1(),
+	op2(),
+	op3(),
+	op3(),
+).subscribe(...);
+</code></pre>
+			</section>
+			<!-- Slide 16-->
+			<section>
+				<h1>Types of Operators</h1>
+				<ul>
+					<li>Combination</li>
+					<li>Conditional</li>
+					<li>Creation</li>
+					<li>Error Handling</li>
+					<li>Multicasting</li>
+					<li>Filtering</li>
+					<li>Transformation</li>
+					<li>Utility</li>
+				</ul>
+			</section>
+			<!-- Slide 17-->
+			<section>
+				<section>
+					<h1>Combination Operators</h1>
+					<blockquote>The combination operators allow the joining of information from multiple observables.
+						Order,
+						time, and structure of emitted values is the primary variation among these operators.
+					</blockquote>
+				</section>
+				<section>
+					<h6>combineLatest</h6>
+					<small>When any observable emits a value, emit the latest value from each.</small>
+				</section>
 			</section>
 		</div>
 	</div>
+	<div id="app-container"></div>
 
 	<script src="js/reveal.js"></script>
-
+	<script src="marble/app.js"></script>
+	<script></script>
+	(function (type, data) {
+	const event = document.createEvent('CustomEvent');
+	event.initCustomEvent(type, false, false, data);
+	document.dispatchEvent(event);
+	})('changeDiagram', 'combineLatest');
 	<script>
 		Reveal.initialize({
 			dependencies: [
@@ -262,6 +316,7 @@ subscription.unsubscribe();
 			]
 		});
 	</script>
+
 </body>
 
 </html>
