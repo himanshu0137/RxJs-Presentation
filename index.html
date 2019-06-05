@@ -13,6 +13,7 @@
 
 	<!-- Theme used for syntax highlighting of code -->
 	<link rel="stylesheet" href="lib/css/monokai.css">
+	<script src="js/marble.js"></script>
 </head>
 
 <body>
@@ -55,13 +56,13 @@
 				<h1>Installation</h1>
 				<div class="fragment">
 					<h6>Install through NPM</h6>
-					<pre><code class="hljs">npm install rxjs</code></pre>
+					<pre><code class="hljs bash">npm install rxjs</code></pre>
 				</div>
 				<div class="fragment">
 					<h6>Usage</h6>
-					<pre><code class="hljs">import * as rxjs from 'rxjs';</code></pre>
-					<pre><code class="hljs">import { of } from 'rxjs';</code></pre>
-					<pre><code class="hljs">import { map } from 'rxjs/operators';</code></pre>
+					<pre><code class="hljs javascript">import * as rxjs from 'rxjs';</code></pre>
+					<pre><code class="hljs javascript">import { of } from 'rxjs';</code></pre>
+					<pre><code class="hljs javascript">import { map } from 'rxjs/operators';</code></pre>
 				</div>
 			</section>
 			<!-- Slide 5-->
@@ -120,7 +121,7 @@
 			<!-- Slide 7-->
 			<section>
 				<h1>Usage</h1>
-				<pre><code class="hljs">var observable = Rx.Observable.create(function (observer) {
+				<pre><code class="hljs javascript">var observable = Rx.Observable.create(function (observer) {
 	observer.next(1);
 	observer.next(2);
 	observer.next(3);
@@ -180,7 +181,7 @@ console.log('just after subscribe');
 			<!-- Slide 10-->
 			<section>
 				<h3>Creating Observables</h3>
-				<pre><code class="hljs">
+				<pre><code class="hljs javascript">
 import { Observable } from 'rxjs';
 const observable = new Observable(function subscribe(subscriber) {
 	const id = setInterval(() => {
@@ -194,7 +195,7 @@ const observable = new Observable(function subscribe(subscriber) {
 			<!-- Slide 11-->
 			<section>
 				<h3>Subscribing to Observables</h3>
-				<pre><code class="hljs">
+				<pre><code class="hljs javascript">
 observable.subscribe(x => console.log(x));
 </code></pre>
 				<blockquote>Subscribing to an Observable is like calling a function, providing callbacks where the data
@@ -211,7 +212,7 @@ observable.subscribe(x => console.log(x));
 					<li><strong>Error</strong> callback: sends a JavaScript Error or exception.</li>
 					<li><strong>Complete</strong> callback: does not send a value.</li>
 				</ul>
-				<pre><code class="hljs">
+				<pre><code class="hljs javascript">
 observable.subscribe(
 	next: (any) => void, 
 	error: (any) => void, 
@@ -234,7 +235,7 @@ observable.subscribe(
 				<h3>Disposing Observable Executions</h3>
 				When an observable is subscribed it occupies some resources, it is neccessary to release those resorces
 				when it's work is done.
-				<pre><code class="hljs">
+				<pre><code class="hljs javascript">
 import { from } from 'rxjs';
 
 const observable = from([10, 20, 30]);
@@ -259,7 +260,7 @@ subscription.unsubscribe();
 			<section>
 				<h1>Usage</h1>
 				<p>Operators are used with a method called <em>pipe()</em></p>
-				<pre><code class="hljs">
+				<pre><code class="hljs javascript">
 obs.pipe(
 	op1(),
 	op2(),
@@ -294,20 +295,296 @@ obs.pipe(
 				<section>
 					<h6>combineLatest</h6>
 					<small>When any observable emits a value, emit the latest value from each.</small>
+					<div id="combineLatest-diagram"></div>
+					<script>
+						document.getElementById('combineLatest-diagram').diagramInstance =
+							renderDiagram('#combineLatest-diagram', 'combineLatest');
+					</script>
+				</section>
+				<section>
+					<h6>concat</h6>
+					<small>Subscribe to observables in order as previous completes.</small>
+					<div id="concat-diagram"></div>
+					<script>
+						document.getElementById('concat-diagram').diagramInstance =
+							renderDiagram('#concat-diagram', 'concat');
+					</script>
+				</section>
+				<section>
+					<h6>merge</h6>
+					<small>Turn multiple observables into a single observable.</small>
+					<div id="merge-diagram"></div>
+					<script>
+						document.getElementById('merge-diagram').diagramInstance =
+							renderDiagram('#merge-diagram', 'merge');
+					</script>
+				</section>
+				<section>
+					<h6>forkJoin</h6>
+					<small>When all observables complete, emit the last emitted value from each.</small>
+					<pre><code class="hljs javascript">
+import { ajax } from 'rxjs/ajax';
+import { forkJoin } from 'rxjs';
+
+/*
+  when all observables complete, provide the last
+  emitted value from each as dictionary
+*/
+forkJoin(
+  // as of RxJS 6.5+ we can use a dictionary of sources
+  {
+    google: ajax.getJSON('https://api.github.com/users/google'),
+    microsoft: ajax.getJSON('https://api.github.com/users/microsoft'),
+    users: ajax.getJSON('https://api.github.com/users')
+  }
+)
+  // { google: object, microsoft: object, users: array }
+  .subscribe(console.log);
+							</code></pre>
+				</section>
+			</section>
+			<!-- Slide 18-->
+			<section>
+				<section>
+					<h1>Creation Operators</h1>
+					<blockquote>These operators allow the creation of an observable from nearly anything. From generic
+						to specific use-cases you are free, and encouraged, to turn everything into a stream.
+					</blockquote>
+				</section>
+				<section>
+					<h6>ajax</h6>
+					<small>Create an observable for an Ajax request with either a request object with url, headers, etc
+						or a string for a URL.</small>
+					<pre><code class="hljs javascript">
+import { ajax } from 'rxjs/ajax';
+
+const githubUsers = `https://api.github.com/users?per_page=2`;
+							
+const users = ajax(githubUsers);
+							
+const subscribe = users.subscribe(
+	res => console.log(res),
+	err => console.error(err)
+);
+</code></pre>
+				</section>
+				<section>
+					<h6>create</h6>
+					<small>Create an observable with given subscription function.</small>
+					<pre><code class="hljs javascript">
+import { Observable } from 'rxjs';
+/*
+  Create an observable that emits 'Hello' and 'World' on  
+  subscription.
+*/
+const hello = Observable.create(function(observer) {
+  observer.next('Hello');
+  observer.next('World');
+  observer.complete();
+});
+
+//output: 'Hello'...'World'
+const subscribe = hello.subscribe(val => console.log(val));
+							</code></pre>
+				</section>
+				<section>
+					<h6>from</h6>
+					<small>Turn an array, promise, or iterable into an observable.</small>
+					<pre><code class="hljs javascript">
+import { from } from 'rxjs';
+const arraySource = from([1, 2, 3, 4, 5]);
+const promiseSource = from(new Promise(resolve => resolve('Hello World!')));
+
+const map = {
+	'first': 'Hi'
+	'second': 'Bye'
+};
+
+const mapSource = from(map);
+const stringSource = from('Hello World');
+					</code></pre>
+				</section>
+				<section>
+					<h6>of</h6>
+					<small>Emit variable amount of values in a sequence and then emits a complete notification.</small>
+					<pre><code class="hljs javascript">
+import { of } from 'rxjs';
+//emits any number of provided values in sequence
+const source = of(1, 2, 3, 4, 5);
+//output: 1,2,3,4,5
+const subscribe = source.subscribe(val => console.log(val));
+					</code></pre>
+				</section>
+			</section>
+			<!-- Slide 19-->
+			<section>
+				<section>
+					<h1>Error Handling Operators</h1>
+					<blockquote>Errors are an unfortunate side-effect of development. These operators provide effective
+						ways to gracefully handle errors and retry logic, should they occur.
+					</blockquote>
+				</section>
+				<section>
+					<h6>catch / catchError</h6>
+					<small>Gracefully handle errors in an observable sequence.</small>
+					<pre><code class="hljs javascript">
+import { throwError, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+//emit error
+const source = throwError('This is an error!');
+//gracefully handle error, returning observable with error message
+const example = source.pipe(catchError(val => of(`I caught: ${val}`)));
+//output: 'I caught: This is an error'
+const subscribe = example.subscribe(val => console.log(val));
+</code></pre>
+				</section>
+			</section>
+			<!-- Slide 20-->
+			<section>
+				<section>
+					<h1>Filtering Operators</h1>
+					<blockquote>The filtering operators allow allow user to filter emitted values by the observer.
+					</blockquote>
+				</section>
+				<section>
+					<h6>debounceTime</h6>
+					<small>Discard emitted values that take less than the specified time between output.</small>
+					<div id="debounceTime-diagram"></div>
+					<script>
+						document.getElementById('debounceTime-diagram').diagramInstance =
+							renderDiagram('#debounceTime-diagram', 'debounceTime');
+					</script>
+				</section>
+				<section>
+					<h6>distinctUntilChanged</h6>
+					<small>Only emit when the current value is different than the last.</small>
+					<div id="distinctUntilChanged-diagram"></div>
+					<script>
+						document.getElementById('distinctUntilChanged-diagram').diagramInstance =
+							renderDiagram('#distinctUntilChanged-diagram', 'distinctUntilChanged');
+					</script>
+				</section>
+				<section>
+					<h6>take</h6>
+					<small>Emit provided number of values before completing.</small>
+					<div id="take-diagram"></div>
+					<script>
+						document.getElementById('take-diagram').diagramInstance =
+							renderDiagram('#take-diagram', 'take');
+					</script>
+				</section>
+				<section>
+					<h6>filter</h6>
+					<small>Emit values that pass the provided condition.</small>
+					<div id="filter-diagram"></div>
+					<script>
+						document.getElementById('filter-diagram').diagramInstance =
+							renderDiagram('#filter-diagram', 'filter');
+					</script>
+				</section>
+			</section>
+			<!-- Slide 21-->
+			<section>
+				<section>
+					<h1>Transformation Operators</h1>
+					<blockquote>Transforming values as they pass through the operator chain is a common task. These
+						operators provide transformation techniques for nearly any use-case you will encounter.
+					</blockquote>
+				</section>
+				<section>
+					<h6>concatMap</h6>
+					<small>Map values to inner observable, subscribe and emit in order.</small>
+					<div id="concatMap-diagram"></div>
+					<script>
+						document.getElementById('concatMap-diagram').diagramInstance =
+							renderDiagram('#concatMap-diagram', 'concatMap');
+					</script>
+				</section>
+				<section>
+					<h6>map</h6>
+					<small>Apply projection with each value from source.</small>
+					<div id="map-diagram"></div>
+					<script>
+						document.getElementById('map-diagram').diagramInstance =
+							renderDiagram('#map-diagram', 'map');
+					</script>
+				</section>
+				<section>
+					<h6>switchMap</h6>
+					<small>Map to observable, complete previous inner observable, emit values.</small>
+					<div id="switchMap-diagram"></div>
+					<script>
+						document.getElementById('switchMap-diagram').diagramInstance =
+							renderDiagram('#switchMap-diagram', 'switchMap');
+					</script>
+				</section>
+				<section>
+					<h6>mergeMap</h6>
+					<small>Map to observable, emit values.</small>
+					<div id="mergeMap-diagram"></div>
+					<script>
+						document.getElementById('mergeMap-diagram').diagramInstance =
+							renderDiagram('#mergeMap-diagram', 'mergeMap');
+					</script>
+				</section>
+			</section>
+			<!-- Slide 22-->
+			<section>
+				<section>
+					<h1>Utility Operators</h1>
+					<blockquote>From logging, handling notifications, to setting up schedulers, these operators provide
+						helpful utilities in your observable toolkit.
+					</blockquote>
+				</section>
+				<section>
+					<h6>do</h6>
+					<small>Transparently perform actions or side-effects, such as logging.</small>
+					<pre><code class="hljs javascript">
+import { of } from 'rxjs';
+import { do, map } from 'rxjs/operators';
+
+const source = of(1, 2, 3, 4, 5);
+// transparently log values from source with 'do'
+const example = source.pipe(
+  do(val => console.log(`BEFORE MAP: ${val}`)),
+  map(val => val + 10),
+  do(val => console.log(`AFTER MAP: ${val}`))
+);
+
+//'do' does not transform values
+//output: 11...12...13...14...15
+const subscribe = example.subscribe(val => console.log(val));
+							</code></pre>
+				</section>
+				<section>
+					<h6>delay</h6>
+					<small>Delay emitted values by given time.</small>
+					<div id="delay-diagram"></div>
+					<script>
+						document.getElementById('delay-diagram').diagramInstance =
+							renderDiagram('#delay-diagram', 'delay');
+					</script>
+				</section>
+				<section>
+					<h6>toPromise</h6>
+					<small>Convert observable to promise.</small>
+					<pre><code class="hljs javascript">
+const sample = val => Rx.Observable.of(val).delay(5000);
+//convert basic observable to promise
+const example = sample('First Example')
+  .toPromise()
+  //output: 'First Example'
+  .then(result => {
+    console.log('From Promise:', result);
+});
+</code></pre>
 				</section>
 			</section>
 		</div>
 	</div>
-	<div id="app-container"></div>
 
 	<script src="js/reveal.js"></script>
-	<script src="marble/app.js"></script>
 	<script></script>
-	(function (type, data) {
-	const event = document.createEvent('CustomEvent');
-	event.initCustomEvent(type, false, false, data);
-	document.dispatchEvent(event);
-	})('changeDiagram', 'combineLatest');
 	<script>
 		Reveal.initialize({
 			dependencies: [
@@ -316,7 +593,6 @@ obs.pipe(
 			]
 		});
 	</script>
-
 </body>
 
 </html>
