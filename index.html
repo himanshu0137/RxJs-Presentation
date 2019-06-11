@@ -580,12 +580,221 @@ const example = sample('First Example')
 </code></pre>
 				</section>
 			</section>
+			<!-- Slide 23-->
+			<section>
+				<section>
+					<h1>Subjects</h1>
+					<blockquote>A Subject is a special type of Observable which shares a single execution path among
+						observers.
+					</blockquote>
+				</section>
+				<section>
+					<div>
+						<pre><code class="hljs javascript">
+const source = Rx.Observable.create((observer) => {
+	observer.next(1);
+	observer.next(2);
+	observer.next(3);
+	observer.complete();
+});
+// Output 1,2,3
+source.subscribe(e => console.log(e));
+// Output 1,2,3
+source.subscribe(e => console.log(e));
+// Output 1,2,3
+source.subscribe(e => console.log(e));
+					</code></pre>
+						<pre><code class="hljs javascript">
+const source = new Rx.Subject();
+source.next('No one will receive this');
+source.subscribe(e => console.log('Subscriber 1 - ' + e));
+source.next(1);
+// Output 
+// Subscriber 1 - 1
+source.subscribe(e => console.log('Subscriber 2 - ' + e));
+source.next(2);
+// Output 
+// Subscriber 1 - 2
+// Subscriber 2 - 2
+</code></pre>
+					</div>
+				</section>
+			</section>
+			<!-- Slide 24-->
+			<section>
+				<h1>Observables vs Subjects</h1>
+				<table>
+					<tr>
+						<th>Observable</th>
+						<th>Subjects</th>
+					</tr>
+					<tr class="fragment">
+						<th>Observables are not subjects</th>
+						<th>Subjects are Observables</th>
+					</tr>
+					<tr class="fragment">
+						<th>Observables have one to one relationship with observers</th>
+						<th>Subjects have one to many relationship with observers</th>
+					</tr>
+					<tr class="fragment">
+						<th>Observables are just like functions which can return multiple values</th>
+						<th>Subjects are more like an infinite stream of data</th>
+					</tr>
+					<tr class="fragment">
+						<th>Observables supports operators</th>
+						<th>Subjects also supports operators and also there are different type of subjects as well</th>
+					</tr>
+				</table>
+			</section>
+			<!-- Slide 25-->
+			<section>
+				<h1>Types of Subjects</h1>
+				<ul>
+					<li>BehaviorSubject</li>
+					<li>ReplaySubject</li>
+					<li>AsyncSubject</li>
+				</ul>
+			</section>
+			<!-- Slide 26-->
+			<section>
+				<section>
+					<h1>BehaviorSubject</h1>
+					<blockquote>
+						It stores the latest value emitted to its consumers, and whenever a new Observer subscribes, it
+						will
+						immediately receive the "current value" from the BehaviorSubject.
+					</blockquote>
+				</section>
+				<section>
+					<pre><code class="hljs javascript">
+import { BehaviorSubject } from 'rxjs';
+const subject = new BehaviorSubject(0); // 0 is the initial value
+
+subject.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+
+subject.next(1);
+subject.next(2);
+
+subject.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+
+subject.next(3);
+
+// Logs
+// observerA: 0
+// observerA: 1
+// observerA: 2
+// observerB: 2
+// observerA: 3
+// observerB: 3
+								</code></pre>
+				</section>
+			</section>
+			<!-- Slide 27-->
+			<section>
+				<section>
+					<h1>ReplaySubject</h1>
+					<blockquote>
+						A ReplaySubject is similar to a BehaviorSubject in that it can send old values to new
+						subscribers, but it can also record a part of the Observable execution.
+					</blockquote>
+				</section>
+				<section>
+					<pre><code class="hljs javascript">
+import { ReplaySubject } from 'rxjs';
+const subject = new ReplaySubject(3); // buffer 3 values for new subscribers
+
+subject.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+
+subject.next(1);
+subject.next(2);
+subject.next(3);
+subject.next(4);
+
+subject.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+
+subject.next(5);
+
+// Logs:
+// observerA: 1
+// observerA: 2
+// observerA: 3
+// observerA: 4
+// observerB: 2
+// observerB: 3
+// observerB: 4
+// observerA: 5
+// observerB: 5
+	</code></pre>
+				</section>
+			</section>
+			<!-- Slide 27-->
+			<section>
+				<section>
+					<h1>AsyncSubject</h1>
+					<blockquote>
+						The AsyncSubject is a variant where only the last value of the Observable execution is sent to
+						its observers, and only when the execution completes.
+					</blockquote>
+				</section>
+				<section>
+					<pre><code class="hljs javascript">
+import { AsyncSubject } from 'rxjs';
+const subject = new AsyncSubject();
+
+subject.subscribe({
+  next: (v) => console.log(`observerA: ${v}`)
+});
+
+subject.next(1);
+subject.next(2);
+subject.next(3);
+subject.next(4);
+
+subject.subscribe({
+  next: (v) => console.log(`observerB: ${v}`)
+});
+
+subject.next(5);
+subject.complete();
+
+// Logs:
+// observerA: 5
+// observerB: 5
+		</code></pre>
+				</section>
+			</section>
+			<!-- Slide 28-->
+			<section>
+				<img src="images/nfy.jpg" alt="">
+			</section>
+			<!-- Slide 29-->
+			<section>
+				<blockquote>
+					I have still left many things for you to explore such as multicasting and many operators.
+					This presentations is too give you a basic idea of how to use RxJs and what are the common
+					things I
+					have used.
+				</blockquote>
+			</section>
+			<!-- Slide 30-->
+			<section>
+				<img src="images/ap.jpg" alt="">
+			</section>
 		</div>
 	</div>
 
 	<script src="js/reveal.js"></script>
-	<script></script>
+	<script src="js/rxjs.umd.min.js"></script>
 	<script>
+		window.Rx = rxjs;
 		Reveal.initialize({
 			dependencies: [
 				{ src: 'plugin/notes/notes.js', async: true },
