@@ -5,11 +5,12 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<title>reveal.js</title>
+	<title>Introduction to Reactive Programming</title>
 
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/reveal.css">
 	<link rel="stylesheet" href="css/theme/black.css">
+	<link rel="stylesheet" href="css/main.css">
 
 	<!-- Theme used for syntax highlighting of code -->
 	<link rel="stylesheet" href="lib/css/monokai.css">
@@ -21,8 +22,8 @@
 		<div class="slides">
 			<!-- Slide 1-->
 			<section>
-				<h1>Introduction To ReactiveX</h1>
-				<small>Concepts and application of RX.js</small>
+				<h1>Introduction To Reactive Programming</h1>
+				<small>Concepts and application of Rx.js</small>
 			</section>
 			<!-- Slide 2-->
 			<section>
@@ -34,62 +35,58 @@
 			</section>
 			<!-- Slide 3-->
 			<section>
-				<h1>
-					What is Reactive Programming ?
-				</h1>
-				<p class="fragment">Reactive programming is an asynchronous programming paradigm concerned with data
-					streams and the propagation of change. This means that it becomes possible to express static (e.g.
-					arrays) or dynamic (e.g. event emitters) data streams with ease via the employed programming
-					language(s).</p>
-				<p class="fragment"></p>In reactive programming, everything can be a stream of data.</p>
-				<p class="fragment">Rx.js is an implementation of Reactive Programming Paradigm in
-					Javascript.</p>
-				<div class="fragment">
-					<p>This concept is also implemented in other languages as well</p>
-					<ol>
-						<li>Python - RxPy</li>
-						<li>C# - RX.Net</li>
-						<li>Java - RXJava</li>
-						<li>and many more</li>
-					</ol>
-				</div>
+				<section>
+					<h1>
+						What is Reactive Programming ?
+					</h1>
+					<p class="fragment">Reactive programming is an asynchronous programming paradigm concerned with data
+						streams and the propagation of change. This means that it becomes possible to express static
+						(e.g.
+						arrays) or dynamic (e.g. event emitters) data streams with ease via the employed programming
+						language(s).</p>
+				</section>
+				<section>
+					<p>In reactive programming, everything can be a stream of data.</p>
+					<p class="fragment">Rx.js is an implementation of Reactive Programming Paradigm in
+						Javascript.</p>
+					<div class="fragment">
+						<p>This concept is also implemented in other languages as well</p>
+						<ul>
+							<li>Python - RxPy</li>
+							<li>C# - RX.Net</li>
+							<li>Java - RXJava</li>
+							<li>and many more</li>
+						</ul>
+					</div>
+				</section>
 			</section>
 			<!-- Slide 4-->
 			<section>
-				<h1>Installation</h1>
-				<div class="fragment">
-					<h6>Install through NPM(JS)</h6>
-					<pre><code class="hljs bash">npm install rxjs</code></pre>
-				</div>
-				<div class="fragment">
-					<h6>Install through Nuget(.Net Core)</h6>
-					<pre><code class="hljs bash">dotnet add package System.Reactive</code></pre>
-				</div>
-				<div class="fragment">
-					<h6>Install through PIP(Python)</h6>
-					<pre><code class="hljs bash">pip3 install rx</code></pre>
-				</div>
+				<section>
+					<h2>Why to use Reactive Programming ?</h2>
+					<ul>
+						<li class="fragment">If anything in your app happens asynchronously, there is a high chance that
+							you have to apply "<em>Observer Pattern.</em>"</li>
+						<li class="fragment">Observable is just the observer pattern with a jetpack.</li>
+					</ul>
+				</section>
+				<section>
+					<ul>
+						<li>It is being standardized by TC39 (Proposal Observable) and will probably become
+							a part of ECMAScript</li>
+						<li class="fragment">Observable allows you to handle different asynchronous events: be that a
+							single
+							finite operation (like http requests) or multiple repeatable actions (like keystrokes or
+							cursor
+							movements). There is a unified API for both.</li>
+						<li class="fragment"> Observable is already used with the most popular frameworks and libraries
+						</li>
+					</ul>
+				</section>
 			</section>
 			<!-- Slide 5-->
 			<section>
-				<h1>Why to use Reactive Programming ?</h1>
-				<ul>
-					<li>If anything in your app happens asynchronously, there is a high chance that you have to apply
-						<em>Observer Pattern.</em></li>
-					<li class="fragment">Observable is just the observer pattern with a jetpack.</li>
-					<li class="fragment">It is being standardized by TC39 (Proposal Observable) and will probably become
-						a part of
-						ECMAScript</li>
-					<li class="fragment">Observable allows you to handle different asynchronous events: be that a single
-						finite operation
-						(like http requests) or multiple repeatable actions (like keystrokes or cursor movements). There
-						is a unified API for both.</li>
-					<li class="fragment"> Observable is already used with the most popular frameworks and libraries</li>
-				</ul>
-			</section>
-			<!-- Slide 6-->
-			<section>
-				<h1>Why not to use Reactive Programming ?</h1>
+				<h3>Why not to use Reactive Programming ?</h3>
 				<ul>
 					<li class="fragment">More memory intensive to store streams of data most of the times</li>
 					<li class="fragment">Might feel unconventional to learn at start</li>
@@ -97,10 +94,26 @@
 					<li class="fragment">Not Provided natively so it is an overhead</li>
 				</ul>
 			</section>
+			<!-- Slide 6-->
+			<section>
+				<h1>Installation</h1>
+				<div>
+					<h6>Install through NPM(JS)</h6>
+					<pre><code class="hljs bash">npm install rxjs</code></pre>
+				</div>
+				<div>
+					<h6>Install through Nuget(.Net Core)</h6>
+					<pre><code class="hljs bash">dotnet add package System.Reactive</code></pre>
+				</div>
+				<div>
+					<h6>Install through PIP(Python 3)</h6>
+					<pre><code class="hljs bash">pip3 install rx</code></pre>
+				</div>
+			</section>
 			<!-- Slide 7-->
 			<section>
 				<h4>Essential Concepts</h4>
-				<ol>
+				<ol class="compact-list">
 					<li>
 						<strong>Observable</strong>: represents the idea of an invokable collection of future values
 						or events.
@@ -125,35 +138,39 @@
 			</section>
 			<!-- Slide 8-->
 			<section>
-				<h1>Observable</h1>
-				<p class="fragment">An observable represents a stream, or source of data that can arrive over time. You
-					can create an observable from nearly anything.</p>
-				<p class="fragment">Observables are lazy Push collections of multiple values.</p>
-				<div class="fragment">
-					<p>Comparison between different concepts</p>
-					<table>
-						<tr>
-							<th>Notification Type/Return Values</th>
-							<th>Single</th>
-							<th>Multiple</th>
-						</tr>
-						<tr>
-							<td>Pull</td>
-							<td>Function</td>
-							<td>Iterator</td>
-						</tr>
-						<tr>
-							<td>Push</td>
-							<td>Promise</td>
-							<td>Observables</td>
-						</tr>
-					</table>
-				</div>
+				<section>
+					<h1>Observable</h1>
+					<p class="fragment">An observable represents a stream, or source of data that can arrive over time.
+						You can create an observable from nearly anything.</p>
+					<p class="fragment">Observables are lazy Push collections of multiple values.</p>
+				</section>
+				<section>
+					<div>
+						<p>Comparison between different concepts</p>
+						<table>
+							<tr>
+								<th>Notification Type/Return Values</th>
+								<th>Single</th>
+								<th>Multiple</th>
+							</tr>
+							<tr>
+								<td>Pull</td>
+								<td class="fragment" data-fragment-index="1">Function</td>
+								<td class="fragment" data-fragment-index="1">Iterator</td>
+							</tr>
+							<tr>
+								<td>Push</td>
+								<td class="fragment" data-fragment-index="2">Promise</td>
+								<td class="fragment" data-fragment-index="3">Observables</td>
+							</tr>
+						</table>
+					</div>
+				</section>
 			</section>
 			<!-- Slide 9-->
 			<section>
 				<h1>Usage</h1>
-				<pre><code class="hljs javascript">var observable = Rx.Observable.create(function (observer) {
+				<pre style="width: unset;"><code class="hljs javascript" style="max-height: unset;">var observable = Rx.Observable.create(function (observer) {
 	observer.next(1);
 	observer.next(2);
 	observer.next(3);
@@ -174,27 +191,27 @@ console.log('just after subscribe');
 			</section>
 			<!-- Slide 10-->
 			<section>
-				<h1>Observable vs Promise</h1>
-				<table>
+				<h3>Observable vs Promise</h3>
+				<table style="font-size: 80%">
 					<tr>
 						<th>Promises</th>
 						<th>Observable</th>
 					</tr>
-					<tr>
+					<tr class="fragment">
 						<td>Helps you run functions asynchronously, and use their return values (or exceptions) but only
 							once when executed.</td>
 						<td>Helps you run functions asynchronously, and use their return values in a continuous
 							sequence(multiple times) when executed.</td>
 					</tr>
-					<tr>
+					<tr class="fragment">
 						<td>Not Lazy ie they are executed as soon they are defined</td>
 						<td>By default, it is Lazy as it emits values when time progresses.</td>
 					</tr>
-					<tr>
+					<tr class="fragment">
 						<td>Not cancellable. The two possible decisions are Reject or Resolve</td>
 						<td>Has a lot of operator which simplifies coding effort.</td>
 					</tr>
-					<tr>
+					<tr class="fragment">
 						<td>Provided natively.</td>
 						<td>Have to add external library</td>
 					</tr>
@@ -238,47 +255,45 @@ observable.subscribe(x => console.log(x));
 			<!-- Slide 14-->
 			<section>
 				<h3>Executing Observables</h3>
-				There are three types of values an Observable Execution can deliver:
-				<ul>
+				<p>There are three types of values an Observable Execution can deliver:</p>
+				<ul class="compact-list">
 					<li><strong>Next</strong> callback: sends a value such as a Number, a String, an Object, etc.</li>
 					<li><strong>Error</strong> callback: sends a JavaScript Error or exception.</li>
 					<li><strong>Complete</strong> callback: does not send a value.</li>
 				</ul>
-				<pre><code class="hljs javascript">
-observable.subscribe(
+				<pre><code class="hljs javascript">observable.subscribe(
 	next: (any) => void, 
 	error: (any) => void, 
 	complete: () => void
 );
 </code></pre>
-				<blockquote>In an Observable Execution, zero to infinite Next notifications may be delivered. If either
-					an Error or Complete notification is delivered, then nothing else can be delivered afterwards.
-				</blockquote>
 				<aside class="notes">
 					<ul>
 						<li>Observables strictly adhere to the Observable Contract</li>
 						<li>It is a good idea to wrap any code in subscribe with try/catch block that will deliver an
 							Error notification if it catches an exception:</li>
+						<li>In an Observable Execution, zero to infinite Next notifications may be delivered. If either
+							an Error or Complete notification is delivered, then nothing else can be delivered
+							afterwards.</li>
 					</ul>
 				</aside>
 			</section>
 			<!-- Slide 15-->
 			<section>
 				<h3>Disposing Observable Executions</h3>
-				When an observable is subscribed it occupies some resources, it is neccessary to release those resorces
-				when it's work is done.
-				<pre><code class="hljs javascript">
-import { from } from 'rxjs';
+				<p style="font-size: 90%">When an observable is subscribed it occupies some resources, it is neccessary
+					to release those
+					resources
+					when it's work is done.When you subscribe, you get back a <em>Subscription</em>, which represents
+					the
+					ongoing execution. Just call unsubscribe() to cancel the execution.</p>
+				<pre><code class="hljs javascript">import { from } from 'rxjs';
 
 const observable = from([10, 20, 30]);
 const subscription = observable.subscribe(x => console.log(x));
 // Later:
-subscription.unsubscribe();
-	</code></pre>
+subscription.unsubscribe();</code></pre>
 				<small>It can also be used to cancel an ongoing task such as API calls</small>
-				<blockquote>When you subscribe, you get back a <em>Subscription</em>, which represents the ongoing
-					execution.
-					Just call unsubscribe() to cancel the execution.</blockquote>
 			</section>
 			<!-- Slide 16-->
 			<section>
@@ -292,19 +307,17 @@ subscription.unsubscribe();
 			<section>
 				<h1>Usage</h1>
 				<p>Operators are used with a method called <em>pipe()</em></p>
-				<pre><code class="hljs javascript">
-obs.pipe(
+				<pre><code class="hljs javascript">obs.pipe(
 	op1(),
 	op2(),
 	op3(),
 	op3(),
-).subscribe(...);
-</code></pre>
+).subscribe(...);</code></pre>
 			</section>
 			<!-- Slide 18-->
 			<section>
 				<h1>Types of Operators</h1>
-				<ul>
+				<ul class="compact-list">
 					<li>Combination</li>
 					<li>Conditional</li>
 					<li>Creation</li>
@@ -354,8 +367,7 @@ obs.pipe(
 				<section>
 					<h6>forkJoin</h6>
 					<small>When all observables complete, emit the last emitted value from each.</small>
-					<pre><code class="hljs javascript">
-import { ajax } from 'rxjs/ajax';
+					<pre style="width: unset"><code class="hljs javascript" style="max-height: unset">import { ajax } from 'rxjs/ajax';
 import { forkJoin } from 'rxjs';
 
 /*
@@ -371,8 +383,7 @@ forkJoin(
   }
 )
   // { google: object, microsoft: object, users: array }
-  .subscribe(console.log);
-							</code></pre>
+  .subscribe(console.log);</code></pre>
 				</section>
 			</section>
 			<!-- Slide 20-->
@@ -387,8 +398,7 @@ forkJoin(
 					<h6>ajax</h6>
 					<small>Create an observable for an Ajax request with either a request object with url, headers, etc
 						or a string for a URL.</small>
-					<pre><code class="hljs javascript">
-import { ajax } from 'rxjs/ajax';
+					<pre><code class="hljs javascript">import { ajax } from 'rxjs/ajax';
 
 const githubUsers = `https://api.github.com/users?per_page=2`;
 							
@@ -397,14 +407,12 @@ const users = ajax(githubUsers);
 const subscribe = users.subscribe(
 	res => console.log(res),
 	err => console.error(err)
-);
-</code></pre>
+);</code></pre>
 				</section>
 				<section>
 					<h6>create</h6>
 					<small>Create an observable with given subscription function.</small>
-					<pre><code class="hljs javascript">
-import { Observable } from 'rxjs';
+					<pre><code class="hljs javascript" style="max-height: unset;">import { Observable } from 'rxjs';
 /*
   Create an observable that emits 'Hello' and 'World' on  
   subscription.
@@ -416,16 +424,16 @@ const hello = Observable.create(function(observer) {
 });
 
 //output: 'Hello'...'World'
-const subscribe = hello.subscribe(val => console.log(val));
-							</code></pre>
+const subscribe = hello.subscribe(val => console.log(val));</code></pre>
 				</section>
 				<section>
 					<h6>from</h6>
 					<small>Turn an array, promise, or iterable into an observable.</small>
-					<pre><code class="hljs javascript">
-import { from } from 'rxjs';
+					<pre><code class="hljs javascript">import { from } from 'rxjs';
 const arraySource = from([1, 2, 3, 4, 5]);
-const promiseSource = from(new Promise(resolve => resolve('Hello World!')));
+const promiseSource = from(
+	new Promise(resolve => resolve('Hello World!'))
+	);
 
 const map = {
 	'first': 'Hi'
@@ -433,19 +441,16 @@ const map = {
 };
 
 const mapSource = from(map);
-const stringSource = from('Hello World');
-					</code></pre>
+const stringSource = from('Hello World');</code></pre>
 				</section>
 				<section>
 					<h6>of</h6>
 					<small>Emit variable amount of values in a sequence and then emits a complete notification.</small>
-					<pre><code class="hljs javascript">
-import { of } from 'rxjs';
+					<pre><code class="hljs javascript">import { of } from 'rxjs';
 //emits any number of provided values in sequence
 const source = of(1, 2, 3, 4, 5);
 //output: 1,2,3,4,5
-const subscribe = source.subscribe(val => console.log(val));
-					</code></pre>
+const subscribe = source.subscribe(val => console.log(val));</code></pre>
 				</section>
 			</section>
 			<!-- Slide 21-->
@@ -459,16 +464,16 @@ const subscribe = source.subscribe(val => console.log(val));
 				<section>
 					<h6>catch / catchError</h6>
 					<small>Gracefully handle errors in an observable sequence.</small>
-					<pre><code class="hljs javascript">
-import { throwError, of } from 'rxjs';
+					<pre><code class="hljs javascript">import { throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 //emit error
 const source = throwError('This is an error!');
 //gracefully handle error, returning observable with error message
-const example = source.pipe(catchError(val => of(`I caught: ${val}`)));
+const example = source.pipe(
+	catchError(val => of(`I caught: ${val}`))
+);
 //output: 'I caught: This is an error'
-const subscribe = example.subscribe(val => console.log(val));
-</code></pre>
+const subscribe = example.subscribe(val => console.log(val));</code></pre>
 				</section>
 			</section>
 			<!-- Slide 22-->
@@ -571,8 +576,7 @@ const subscribe = example.subscribe(val => console.log(val));
 				<section>
 					<h6>do</h6>
 					<small>Transparently perform actions or side-effects, such as logging.</small>
-					<pre><code class="hljs javascript">
-import { of } from 'rxjs';
+					<pre><code class="hljs javascript" style="max-height: unset;">import { of } from 'rxjs';
 import { do, map } from 'rxjs/operators';
 
 const source = of(1, 2, 3, 4, 5);
@@ -585,8 +589,7 @@ const example = source.pipe(
 
 //'do' does not transform values
 //output: 11...12...13...14...15
-const subscribe = example.subscribe(val => console.log(val));
-							</code></pre>
+const subscribe = example.subscribe(val => console.log(val));</code></pre>
 				</section>
 				<section>
 					<h6>delay</h6>
@@ -600,16 +603,14 @@ const subscribe = example.subscribe(val => console.log(val));
 				<section>
 					<h6>toPromise</h6>
 					<small>Convert observable to promise.</small>
-					<pre><code class="hljs javascript">
-const sample = val => Rx.Observable.of(val).delay(5000);
+					<pre><code class="hljs javascript">const sample = val => Rx.Observable.of(val).delay(5000);
 //convert basic observable to promise
 const example = sample('First Example')
   .toPromise()
   //output: 'First Example'
   .then(result => {
     console.log('From Promise:', result);
-});
-</code></pre>
+});</code></pre>
 				</section>
 			</section>
 			<!-- Slide 25-->
@@ -620,10 +621,9 @@ const example = sample('First Example')
 						observers.
 					</blockquote>
 				</section>
-				<section>
+				<section style="padding: 0px; font-size: 90%">
 					<div>
-						<pre><code class="hljs javascript">
-const source = Rx.Observable.create((observer) => {
+						<pre><code class="hljs javascript">const source = Rx.Observable.create((observer) => {
 	observer.next(1);
 	observer.next(2);
 	observer.next(3);
@@ -634,10 +634,8 @@ source.subscribe(e => console.log(e));
 // Output 1,2,3
 source.subscribe(e => console.log(e));
 // Output 1,2,3
-source.subscribe(e => console.log(e));
-					</code></pre>
-						<pre><code class="hljs javascript">
-const source = new Rx.Subject();
+source.subscribe(e => console.log(e));</code></pre>
+						<pre><code class="hljs javascript">const source = new Rx.Subject();
 source.next('No one will receive this');
 source.subscribe(e => console.log('Subscriber 1 - ' + e));
 source.next(1);
@@ -647,15 +645,14 @@ source.subscribe(e => console.log('Subscriber 2 - ' + e));
 source.next(2);
 // Output 
 // Subscriber 1 - 2
-// Subscriber 2 - 2
-</code></pre>
+// Subscriber 2 - 2</code></pre>
 					</div>
 				</section>
 			</section>
 			<!-- Slide 26-->
 			<section>
-				<h1>Observables vs Subjects</h1>
-				<table>
+				<h3>Observables vs Subjects</h3>
+				<table style="font-size: 80%;">
 					<tr>
 						<th>Observable</th>
 						<th>Subjects</th>
@@ -698,8 +695,7 @@ source.next(2);
 					</blockquote>
 				</section>
 				<section>
-					<pre><code class="hljs javascript">
-import { BehaviorSubject } from 'rxjs';
+					<pre><code class="hljs javascript" style="max-height: unset">import { BehaviorSubject } from 'rxjs';
 const subject = new BehaviorSubject(0); // 0 is the initial value
 
 subject.subscribe({
@@ -721,8 +717,7 @@ subject.next(3);
 // observerA: 2
 // observerB: 2
 // observerA: 3
-// observerB: 3
-								</code></pre>
+// observerB: 3</code></pre>
 				</section>
 			</section>
 			<!-- Slide 29-->
@@ -735,8 +730,7 @@ subject.next(3);
 					</blockquote>
 				</section>
 				<section>
-					<pre><code class="hljs javascript">
-import { ReplaySubject } from 'rxjs';
+					<pre style="width: unset"><code class="hljs javascript" style="width: unset;font-size: 49%;">import { ReplaySubject } from 'rxjs';
 const subject = new ReplaySubject(3); // buffer 3 values for new subscribers
 
 subject.subscribe({
@@ -763,8 +757,7 @@ subject.next(5);
 // observerB: 3
 // observerB: 4
 // observerA: 5
-// observerB: 5
-	</code></pre>
+// observerB: 5</code></pre>
 				</section>
 			</section>
 			<!-- Slide 27-->
@@ -777,8 +770,7 @@ subject.next(5);
 					</blockquote>
 				</section>
 				<section>
-					<pre><code class="hljs javascript">
-import { AsyncSubject } from 'rxjs';
+					<pre style="width: unset"><code class="hljs javascript" style="max-height: unset">import { AsyncSubject } from 'rxjs';
 const subject = new AsyncSubject();
 
 subject.subscribe({
@@ -799,8 +791,7 @@ subject.complete();
 
 // Logs:
 // observerA: 5
-// observerB: 5
-		</code></pre>
+// observerB: 5</code></pre>
 				</section>
 			</section>
 			<!-- Slide 28-->
