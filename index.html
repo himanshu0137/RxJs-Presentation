@@ -33,31 +33,113 @@
 					<li>For this presentation I am going to use JS but usage is almost similar in all languages</li>
 				</ol>
 			</section>
+			<section>
+				<section>
+					<blockquote>
+						Assume you are getting continuos data from a temperature sensor. But the sensor sends too many
+						values in one second so you need to take average of some values
+						how will you solve this problem?
+					</blockquote>
+				</section>
+				<section>
+					<h3>Using Callbacks</h3>
+					<pre style="width: unset;"><code class="hljs javascript" style="max-height: unset;">const data = (callback) => {
+	setInterval(() => {
+		callback(Math.round(Math.random() * 100))
+	}, 100);
+};
+
+const bufferData = (size, callback) => {
+	const buffer = [];
+	return data => {
+		if (buffer.length < size) {
+			buffer.push(data);
+		}
+		else {
+			const average = 
+			buffer.reduce((acc, cur) => acc + cur, 0)/size;
+			callback(sum);
+			buffer.length = 0;
+		}
+	};
+}
+data(bufferData(10, console.log));</code></pre>
+				</section>
+				<section style="padding: 0px">
+					<h3>Using Events</h3>
+					<pre style="width: unset;font-size: 0.41em;"><code class="hljs javascript" style="max-height: unset;">const emitEvent = (type, data) => {
+	const event = new CustomEvent(type, { detail: data });
+	document.dispatchEvent(event);
+};
+
+const data = (delay) => {
+	setInterval(() => {
+		emitEvent('dataIncoming', Math.round(Math.random() * 100))
+	}, delay);
+};
+
+const bufferData = (size) => {
+	const buffer = [];
+	document.addEventListener('dataIncoming', (e) => {
+		console.log(e.detail);
+		if (buffer.length < size) {
+			buffer.push(e.detail);
+		}
+		else {
+			const average = buffer.reduce((acc, cur) => acc + cur, 0)/size;
+			emitEvent('bufferData', average);
+			buffer.length = 0;
+		}
+	});
+}
+document.addEventListener('bufferData', e => {
+	console.log(e.detail);
+});
+bufferData(10);
+data(500);</code></pre>
+				</section>
+				<section>
+					<h3>Using Reactive Programming(Rx.js)</h3>
+					<pre><code class="hljs javascript">const {bufferCount, map} = Rx.operators;
+const source = Rx.interval(100)
+	.pipe(map(a => Math.round(Math.random() * 100)));
+source.pipe(
+	bufferCount(10), 
+	map(buffer => 
+		buffer.reduce(
+			(acc, cur) => acc + cur, 0)/buffer.length
+		)
+).subscribe((d) => console.log(d));</code></pre>
+				</section>
+			</section>
 			<!-- Slide 3-->
 			<section>
 				<section>
 					<h1>
 						What is Reactive Programming ?
 					</h1>
-					<p class="fragment">Reactive programming is an asynchronous programming paradigm concerned with data
-						streams and the propagation of change. This means that it becomes possible to express static
-						(e.g.
-						arrays) or dynamic (e.g. event emitters) data streams with ease via the employed programming
-						language(s).</p>
+					<p class="fragment">Reactive programming is an <span class="important">asynchronous programming
+							paradigm</span> concerned with <span class="important">data streams</span> and the
+						propagation of change. This means that it becomes possible to express static (e.g. arrays) or
+						dynamic (e.g. event emitters) data streams with ease via the employed
+						programming language(s).</p>
 				</section>
 				<section>
-					<p>In reactive programming, everything can be a stream of data.</p>
-					<p class="fragment">Rx.js is an implementation of Reactive Programming Paradigm in
-						Javascript.</p>
-					<div class="fragment">
-						<p>This concept is also implemented in other languages as well</p>
-						<ul>
-							<li>Python - RxPy</li>
-							<li>C# - RX.Net</li>
-							<li>Java - RXJava</li>
-							<li>and many more</li>
-						</ul>
-					</div>
+					<p>Reactive programming is programming with <span class="important">asynchronous</span> <span
+							class="important">data streams.</span></p>
+					<p class="fragment">In reactive programming, everything can be a <span class="important">stream of
+							data.</span></p>
+					<img class="fragment" src="images/stream.png">
+				</section>
+				<section>
+					<p>This concept is implemented in many languages, such as</p>
+					<ul>
+						<li>Javascript - Rx.js</li>
+						<li>Python - RxPy</li>
+						<li>C# - Rx.Net</li>
+						<li>Java - RxJava</li>
+						<li>and many more</li>
+					</ul>
 				</section>
 			</section>
 			<!-- Slide 4-->
@@ -67,18 +149,14 @@
 					<ul>
 						<li class="fragment">If anything in your app happens asynchronously, there is a high chance that
 							you have to apply "<em>Observer Pattern.</em>"</li>
-						<li class="fragment">Observable is just the observer pattern with a jetpack.</li>
 					</ul>
 				</section>
 				<section>
 					<ul>
-						<li>It is being standardized by TC39 (Proposal Observable) and will probably become
-							a part of ECMAScript</li>
+						<li>Many languages are adopting reactive programming such as JavaScript, Kotlin, C#</li>
 						<li class="fragment">Observable allows you to handle different asynchronous events: be that a
-							single
-							finite operation (like http requests) or multiple repeatable actions (like keystrokes or
-							cursor
-							movements). There is a unified API for both.</li>
+							single finite operation (like http requests) or multiple repeatable actions (like keystrokes
+							or cursor movements). There is a unified API for both.</li>
 						<li class="fragment"> Observable is already used with the most popular frameworks and libraries
 						</li>
 					</ul>
@@ -91,7 +169,7 @@
 					<li class="fragment">More memory intensive to store streams of data most of the times</li>
 					<li class="fragment">Might feel unconventional to learn at start</li>
 					<li class="fragment">Difficult to debug because of asynchronous behavior</li>
-					<li class="fragment">Not Provided natively so it is an overhead</li>
+					<li class="fragment">Not Provided natively(in some languages) so it is an overhead</li>
 				</ul>
 			</section>
 			<!-- Slide 6-->

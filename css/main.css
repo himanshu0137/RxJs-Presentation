@@ -1,3 +1,10 @@
 .compact-list{
     font-size: 90%;
 }
+.important{
+    background-color: green;
+}
+.important:hover{
+    background-color: blue;
+    cursor: pointer;
+}
